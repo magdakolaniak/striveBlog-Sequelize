@@ -1,0 +1,1 @@
+# striveBlog-Sequelize
