@@ -8,13 +8,14 @@ import listEndpoints from 'express-list-endpoints';
 const server = express();
 
 server.use(cors());
+server.use(express.json());
 server.use('/authors', authorsRoute);
 server.use('/blogPosts', blogPostRoute);
 
 const port = process.env.PORT || 3000;
 console.table(listEndpoints(server));
 db.sequelize
-  .sync()
+  .sync({ force: false })
   .then(() => {
     server.listen(port, () => console.log('Server is running on port:', port));
     server.on('error', (error) => console.info('Server is not running', error));

@@ -2,12 +2,20 @@ import { Router } from 'express';
 import models from '../../db/index.js';
 
 const BlogPost = models.BlogPost;
-
+const Author = models.Author;
 const blogPostRoute = Router();
 
 blogPostRoute.get('/', async (req, res, next) => {
   try {
-    const data = await BlogPost.findAll();
+    const data = await BlogPost.findAll({
+      include: {
+        model: Author,
+        attributes: ['id', 'name', 'surname'],
+      },
+      attributes: {
+        exclude: ['createdAt', 'updatedAt', 'authorId'],
+      },
+    });
     res.send(data);
   } catch (error) {
     console.log(error);

@@ -28,9 +28,9 @@ authorsRoute.get('/:id', async (req, res, next) => {
 });
 authorsRoute.post('/', async (req, res, next) => {
   try {
-    console.log(req.body);
+    console.log('body', req.body);
     const data = await Author.create(req.body);
-    console.log(req.body);
+
     res.send(data);
   } catch (error) {
     console.log(error);
