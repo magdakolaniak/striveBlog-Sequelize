@@ -72,20 +72,26 @@ blogPostRoute.post('/category', async (req, res, next) => {
     console.log(error);
   }
 });
-// blogPostRoute.post('/:id/comment', async (req, res, next) => {
-//   try {
-//     const data = await Comment.create(req.body);
-//     const commentId = data.id;
-
-//     const updatePost = await BlogPost.update(req.body.commentId, {
-//       where: { id: req.params.id },
-//       returning: true,
-//     });
-//     res.send(updatePost);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// });
+blogPostRoute.post('/:id/comment', async (req, res, next) => {
+  try {
+    const blogId = req.params.id;
+    const comment = req.body;
+    const data = await Comment.create(comment);
+    console.log(data);
+    const commentId = data.id;
+    const blogToUpdate = await BlogPost.findByPk(blogId);
+    const updatePost = await BlogPost.update(
+      { ...blogToUpdate, commentId: commentId },
+      {
+        where: { id: blogId },
+        returning: true,
+      }
+    );
+    res.send(updatePost);
+  } catch (error) {
+    console.log(error);
+  }
+});
 blogPostRoute.put('/:id', async (req, res, next) => {
   try {
     const data = await BlogPost.update(req.body, {
