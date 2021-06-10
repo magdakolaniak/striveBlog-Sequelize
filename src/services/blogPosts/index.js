@@ -30,7 +30,7 @@ blogPostRoute.get('/', async (req, res, next) => {
             },
           ],
 
-          attributes: ['comment', 'rate', 'authorId'],
+          attributes: ['comment', 'rate'],
         },
       ],
       attributes: {
