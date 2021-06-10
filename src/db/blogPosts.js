@@ -5,10 +5,6 @@ const blogPostsModel = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    category: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-    },
     title: {
       type: DataTypes.TEXT,
       allowNull: false,
